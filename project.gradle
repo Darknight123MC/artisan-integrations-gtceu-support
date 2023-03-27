@@ -46,16 +46,29 @@ repositories {
   // patchouli
   maven { url 'https://maven.blamejared.com' }
 
+  maven { url 'https://cursemaven.com' }
 }
 
 dependencies {
-  compile project(":athenaeum")
-  compile project(":artisan-worktables")
+  compile 'curse.maven:athenaeum-284350:3533386'
+  compile 'curse.maven:artisan-worktables-284351:3205284'
 
-  compile 'curse.maven:gregtechce:2974205' // gregtech-1.12.2-1.9.1.507
-  compile 'curse.maven:botania:2846950' // Botania r1.10-363
-  compile 'curse.maven:from-the-ground-up:2942248' // FTGU-1.12.2-b1.4.1
+  compile 'curse.maven:gregtech-ce-unofficial-557242:4429261'
+  compile 'curse.maven:botania-225643:3330934'
+  compile 'curse.maven:from-the-ground-up-250717:3271152'
 
-  compile "vazkii.patchouli:Patchouli:1.0-20.108"
-  deobfCompile "codersafterdark.reskillable:Reskillable:1.12.2-1.12.5-SNAPSHOT.126"
+  compileOnly 'CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.+'
+
+  compile "net.darkhax.gamestages:GameStages-1.12.2:2.0.123"
+  compile "net.darkhax.bookshelf:Bookshelf-1.12.2:2.3.590"
+
+  compile("curse.maven:ae2-extended-life-570458:4448152")
+  compile("curse.maven:buildcraft-61811:3204475")
+  compile("curse.maven:cofh-core-69162:2920433")
+  compile("curse.maven:ender-io-64578:3328811")
+  compile("curse.maven:forestry-59751:2918418")
+  compile("curse.maven:endercore-231868:2972849")
+
+  compile "vazkii.patchouli:Patchouli:1.1-25.4"
+  deobfCompile("codersafterdark.reskillable:Reskillable:1.12.2-1.12.5-SNAPSHOT.126")
 }

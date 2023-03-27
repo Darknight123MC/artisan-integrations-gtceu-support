@@ -2,7 +2,7 @@ package com.codetaylor.mc.artisanintegrations.modules.gregtech.tool;
 
 import com.codetaylor.mc.artisanintegrations.modules.gregtech.ModuleGregTech;
 import com.codetaylor.mc.artisanworktables.api.recipe.IToolHandler;
-import gregtech.api.items.IToolItem;
+import gregtech.api.items.toolitem.IGTTool;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -28,7 +28,7 @@ public class ToolHandler
       this.methodHandle = methodHandle;
     }
 
-    abstract boolean damageItem(IToolItem item, ItemStack itemStack, int damage, boolean simulate);
+    abstract boolean damageItem(IGTTool item, ItemStack itemStack, int damage, boolean simulate);
   }
 
   public ToolHandler() {
@@ -40,7 +40,7 @@ public class ToolHandler
 
     try {
       MethodHandle methodHandle = MethodHandles.publicLookup().findVirtual(
-          IToolItem.class,
+          IGTTool.class,
           "damageItem",
           MethodType.methodType(boolean.class, ItemStack.class, int.class, boolean.class)
       );
@@ -48,7 +48,7 @@ public class ToolHandler
       this.methodHandleWrapper = new GTCEMethodHandleWrapper(methodHandle) {
 
         @Override
-        boolean damageItem(IToolItem item, ItemStack itemStack, int damage, boolean simulate) {
+        boolean damageItem(IGTTool item, ItemStack itemStack, int damage, boolean simulate) {
 
           try {
             return (boolean) this.methodHandle.invoke(item, itemStack, damage, simulate);
@@ -75,7 +75,7 @@ public class ToolHandler
       try {
         //noinspection JavaLangInvokeHandleSignature
         MethodHandle methodHandle = MethodHandles.publicLookup().findVirtual(
-            IToolItem.class,
+            IGTTool.class,
             "damageItem",
             MethodType.methodType(boolean.class, ItemStack.class, EntityLivingBase.class, int.class, boolean.class)
         );
@@ -83,7 +83,7 @@ public class ToolHandler
         this.methodHandleWrapper = new GTCEMethodHandleWrapper(methodHandle) {
 
           @Override
-          boolean damageItem(IToolItem item, ItemStack itemStack, int damage, boolean simulate) {
+          boolean damageItem(IGTTool item, ItemStack itemStack, int damage, boolean simulate) {
 
             try {
               return (boolean) this.methodHandle.invoke(item, itemStack, null, damage, simulate);
@@ -113,7 +113,7 @@ public class ToolHandler
   @Override
   public boolean matches(ItemStack itemStack) {
 
-    return itemStack.getItem() instanceof IToolItem;
+    return itemStack.getItem() instanceof IGTTool;
   }
 
   @Override
@@ -156,8 +156,8 @@ public class ToolHandler
 
     Item item = itemStack.getItem();
 
-    if (item instanceof IToolItem) {
-      return this.methodHandleWrapper.damageItem((IToolItem) item, itemStack, damage, simulate);
+    if (item instanceof IGTTool) {
+      return this.methodHandleWrapper.damageItem((IGTTool) item, itemStack, damage, simulate);
     }
 
     return false;
